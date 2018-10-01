@@ -32,5 +32,4 @@ nmap rb <Plug>(vgb-rem-break)
 
 	* Navigate break marks
 	* Don't require break file to be open in buffer
-	* 
 	* Parse the file on start up to place marks
