@@ -49,3 +49,40 @@ endfunction
 function! vgb#remove()
 	call SetGdbBreakCurLine(1)
 endfunction
+
+function! vgb#next()
+	let curbuf = bufwinnr('%')
+	let curline = line('.')
+	let sign_list = :exe ":sign place buffer=" . curbuf
+
+	for s in sign_list
+		if s =~ "breakLine"
+			let split_break = split(s)
+			let bline = split(split_break, "=")[1]
+
+			if bline > curline 
+				normal! bline . "G"
+		endif
+	endfor
+
+endfunction
+
+function! vgb#prev()
+	let curbuf = bufwinnr('%')
+	let curline = line('.')
+	let sign_list = :exe ":sign place buffer=" . curbuf
+
+	for s in sign_list
+		if s =~ "breakLine"
+			let split_break = split(s)
+			let bline = split(split_break, "=")
+
+			if bline > curline 
+				normal! prev_bline[1] . "G"
+			else
+				let prev_bline = bline
+			endif
+		endif
+	endfor
+endfunction
+

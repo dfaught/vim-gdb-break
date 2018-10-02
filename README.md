@@ -24,8 +24,8 @@ g:vgb_mark = ❎
 ## Bindings
 
 ```vim
-nmap ab <Plug>(vgb-add-brreak)
-nmap rb <Plug>(vgb-rem-break)
+nmap ba <Plug>(vgb-add-brreak)
+nmap br <Plug>(vgb-rem-break)
 ```
 
 ## TODO

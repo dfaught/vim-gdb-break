@@ -16,22 +16,22 @@ if !exists('g:vgb_break_file')
 endif
 
 if !exists('g:vgb_mark')
-	let g:vgb_mark = ❎
+	let g:vgb_mark = "❎"
 endif
 
-sign define breakLine texthl=ErrorMsg text=g:vbg_mark
-let g:break_id = 0
+execute "sign define breakLine texthl=ErrorMsg text=". g:vgb_mark
+let g:break_id = 1
 let g:break_list = []
 let g:cur_break = 0 
 
-" nnoremap <silent><Plug>(vgb-next-break) :call vgb#next()
-" nnoremap <silent><Plug>(vgb-prev-break) :call vgb#prev()
-nnoremap <silent><Plug>(vgb-add-break) :call vgb#add()
-nnoremap <silent><Plug>(vgb-rem-break) :call vgb#remove()
+nnoremap <silent><Plug>(VgbNextBreak) :call vgb#next()<CR>
+nnoremap <silent><Plug>(VgbPrevBreak) :call vgb#prev()<CR>
+nnoremap <silent><Plug>(VgbAddBreak) :call vgb#add()<CR>
+nnoremap <silent><Plug>(VgbRemBreak) :call vgb#remove()<CR>
 
 if !exists('g:vgb_no_mappings')
-	" nmap nb <Plug>(vgb-next-break)
-	" nmap pb <Plug>(vgb-prev-break)
-	nmap ab <Plug>(vgb-add-brreak)
-	nmap rb <Plug>(vgb-rem-break)
+	nmap nb <Plug>(VgbNextBreak)
+	nmap pb <Plug>(VgbPrevBreak)
+	nmap ba <Plug>(VgbAddBreak)
+	nmap br <Plug>(VgbRemBreak)
 endif
