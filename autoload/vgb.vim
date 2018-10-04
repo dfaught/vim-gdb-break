@@ -1,7 +1,8 @@
 " vim et sw=4 sts=4 ts=4
 " autoload/vgb.vim
 
-function! SetGdbBreakCurLine(del)
+function! s:SetGdbBreakCurLine(del)
+	let cur_b = @b
 	let @b = "b " . expand('%:t') . ":" . line('.')
 
 	let brwin = bufwinnr(g:break_file)
@@ -40,45 +41,27 @@ function! SetGdbBreakCurLine(del)
 		" for now we will require the file to be open
 		echoerr g:break_file . " not opened"
 	endif
+
+	let @b = cur_b
 endfunction
 
-function! vgb#add()
-	call SetGdbBreakCurLine(0)
-endfunction
-
-function! vgb#remove()
-	call SetGdbBreakCurLine(1)
-endfunction
-
-function! vgb#next()
+function! s:NavigateBreak(is_prev)
 	let curbuf = bufwinnr('%')
 	let curline = line('.')
-	let sign_list = :exe ":sign place buffer=" . curbuf
 
-	for s in sign_list
-		if s =~ "breakLine"
-			let split_break = split(s)
-			let bline = split(split_break, "=")[1]
+	for brtag in g:break_list
+		let split_break = split(brtag, '-')
+		if split_break[0] == curbuf
+			let bline = split_break[1]
 
-			if bline > curline 
-				normal! bline . "G"
-		endif
-	endfor
-
-endfunction
-
-function! vgb#prev()
-	let curbuf = bufwinnr('%')
-	let curline = line('.')
-	let sign_list = :exe ":sign place buffer=" . curbuf
-
-	for s in sign_list
-		if s =~ "breakLine"
-			let split_break = split(s)
-			let bline = split(split_break, "=")
-
-			if bline > curline 
-				normal! prev_bline[1] . "G"
+			if bline >= curline 
+				normal! m`
+				
+				if a:is_prev == 1
+					call cursor(prev_bline, 0)
+				else
+					call cursor(bline, 0)
+				endif
 			else
 				let prev_bline = bline
 			endif
@@ -86,3 +69,18 @@ function! vgb#prev()
 	endfor
 endfunction
 
+function! vgb#add()
+	call s:SetGdbBreakCurLine(0)
+endfunction
+
+function! vgb#remove()
+	call s:SetGdbBreakCurLine(1)
+endfunction
+
+function! vgb#next()
+	call s:NavigateBreak(0)
+endfunction
+
+function! vgb#prev()
+	call s:NavigateBreak(1)
+endfunction

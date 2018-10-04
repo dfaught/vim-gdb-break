@@ -24,10 +24,10 @@ let g:break_id = 1
 let g:break_list = []
 let g:cur_break = 0 
 
-nnoremap <silent><Plug>(VgbNextBreak) :call vgb#next()<CR>
-nnoremap <silent><Plug>(VgbPrevBreak) :call vgb#prev()<CR>
-nnoremap <silent><Plug>(VgbAddBreak) :call vgb#add()<CR>
-nnoremap <silent><Plug>(VgbRemBreak) :call vgb#remove()<CR>
+nnoremap <silent><Plug>VgbNextBreak :call vgb#next()<CR>
+nnoremap <silent><Plug>VgbPrevBreak :call vgb#prev()<CR>
+nnoremap <silent><Plug>VgbAddBreak :call vgb#add()<CR>
+nnoremap <silent><Plug>VgbRemBreak :call vgb#remove()<CR>
 
 if !exists('g:vgb_no_mappings')
 	nmap nb <Plug>(VgbNextBreak)
