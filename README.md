@@ -30,7 +30,10 @@ nmap br <Plug>(vgb-rem-break)
 
 ## TODO
 
-* Navigate break marks
+* Add toggle function/map
+* Add wrap setting to navigate
 * Don't require break file to be open in buffer
 * Parse the file on start up to place marks
 * Add configuration for file types: c, cpp, python...
+* Add reverse recursive search for g:break_file
+* Update the break file when positions change.
